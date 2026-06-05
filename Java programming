@@ -1,0 +1,260 @@
+Constructor:
+Example:
+
+class Person {
+    String name;
+
+    Person(String name) {  // constructor
+        this.name = name;
+    }
+}
+
+Person p = new Person("Alice");
+
+Defult constructor:
+Example:
+   class Test {
+    int id;
+    String name;
+
+    Test() {
+        System.out.println("ID = " + id);
+        System.out.println("Name = " + name);
+    }
+
+    public static void main(String[] args) {
+        Test t = new Test();
+    }
+}
+
+Parameteries Constructor:
+Example:
+   class Student {
+    int id;
+    String name;
+
+    // Parameterized Constructor
+    Student(int i, String n) {
+        id = i;
+        name = n;
+    }
+
+    void display() {
+        System.out.println("ID = " + id);
+        System.out.println("Name = " + name);
+    }
+
+    public static void main(String[] args) {
+        Student s1 = new Student(101, "Rakib");
+        Student s2 = new Student(102, "Rahim");
+
+        s1.display();
+        s2.display();
+    }
+}
+
+Copy Constructor:
+Example:
+   class Book {
+    String title;
+    double price;
+
+    Book(String title, double price) {
+        this.title = title;
+        this.price = price;
+    }
+
+    Book(Book b) {
+        this.title = b.title;
+        this.price = b.price;
+    }
+
+    void show() {
+        System.out.println(title + " " + price);
+    }
+}
+
+
+Method overloading:
+Example;
+    class MathOperations {
+
+    // Method with two integers
+    int add(int a, int b) {
+        return a + b;
+    }
+
+    // Method with three integers
+    int add(int a, int b, int c) {
+        return a + b + c;
+    }
+
+    // Method with double parameters
+    double add(double a, double b) {
+        return a + b;
+    }
+}
+
+public class Main {
+    public static void main(String[] args) {
+        MathOperations obj = new MathOperations();
+
+        System.out.println(obj.add(2, 3));        // calls first method
+        System.out.println(obj.add(2, 3, 4));     // calls second method
+        System.out.println(obj.add(2.5, 3.5));    // calls third method
+    }
+}
+
+method overriding:
+
+
+class Animal {
+    void sound() {
+        System.out.println("Animal makes a sound");
+    }
+}
+
+class Dog extends Animal {
+    @Override
+    void sound() {
+        System.out.println("Dog barks");
+    }
+}
+
+public class Main {
+    public static void main(String[] args) {
+        Animal a = new Dog();
+        a.sound();
+    }
+}
+
+
+ Method Overriding vs  Method Overloading :
+
+| Method Overriding                               | Method Overloading                     |
+| ----------------------------------------------- | -------------------------------------- |
+| Same method signature in parent and child class | Same method name, different parameters |
+| Requires inheritance                            | Inheritance not required               |
+| Resolved at runtime                             | Resolved at compile time               |
+| Used for runtime polymorphism                   | Used for increasing method flexibility |
+
+
+
+Super key:Access Parent Class Variable
+
+class Animal {
+    String color = "White";
+}
+
+class Dog extends Animal {
+    String color = "Black";
+
+    void display() {
+        System.out.println("Dog Color: " + color);
+        System.out.println("Animal Color: " + super.color);
+    }
+}
+
+public class Main {
+    public static void main(String[] args) {
+        Dog d = new Dog();
+        d.display();
+    }
+}
+
+Super key:Call Parent Class Method
+
+class Animal {
+    void sound() {
+        System.out.println("Animal makes a sound");
+    }
+}
+
+class Dog extends Animal {
+    void sound() {
+        System.out.println("Dog barks");
+    }
+
+    void display() {
+        sound();        // Child method
+        super.sound();  // Parent method
+    }
+}
+
+public class Main {
+    public static void main(String[] args) {
+        Dog d = new Dog();
+        d.display();
+    }
+}
+
+Super key:Call Parent Class Constructor
+
+class Animal {
+    Animal() {
+        System.out.println("Animal Constructor");
+    }
+}
+
+class Dog extends Animal {
+    Dog() {
+        super(); // Calls Animal constructor
+        System.out.println("Dog Constructor");
+    }
+}
+
+public class Main {
+    public static void main(String[] args) {
+        Dog d = new Dog();
+    }
+}
+
+Uses of super
+Access parent class variables → super.variable
+Access parent class methods → super.method()
+Call parent class constructor → super()
+
+Question 1:
+
+class Teacher {
+    String subject;
+
+    Teacher(String subject) {
+        this.subject = subject;
+        System.out.println("Teacher constructor called");
+    }
+
+    void displayInfo() {
+        System.out.println("Teaches: " + subject);
+    }
+}
+
+class MathTeacher extends Teacher {
+    String subject; 
+
+    MathTeacher(String parentSubject, String childSubject) {
+        super(parentSubject); 
+        this.subject = childSubject;
+    }
+
+    @Override
+    void displayInfo() {
+        super.displayInfo();
+        System.out.println("Specialized in: " + subject);
+    }
+
+    void showSubjects() {
+        System.out.println("Parent subject: " + super.subject);
+        System.out.println("Child subject: " + this.subject);
+    }
+}
+
+public class SuperKeywordExample {
+    public static void main(String[] args) {
+        MathTeacher m = new MathTeacher("General Science", "Mathematics");
+        m.displayInfo();
+        m.showSubjects();
+    }
+}
+
+
