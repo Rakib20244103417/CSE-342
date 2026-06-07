@@ -1,0 +1,309 @@
+                                  Lab Report.
+
+1. Write a Java program to create a class named Book that represents basic information
+about a book in a library. The class should have three attributes: title (String), author
+(String), and yearPublished (int). Include a constructor to initialize these fields and a
+method called displayInfo () that prints the book&#39;s details. In the main method, create at
+least two objects of the Book class with different data and call the displayInfo () method
+for each to display their information.
+  
+2. Design a MetroTicket class to simulate a metro ticket booking system using constructor
+overloading. Passengers can book tickets with different levels of information: some may
+provide only their name, source, and destination; others may include whether it’s a round
+trip, choose between &quot;Regular&quot; or &quot;Premium&quot; seat classes, and even apply discount
+codes. The class should have four overloaded constructors to handle these scenarios. Use
+constructor chaining to avoid code repetition. Include validations—for instance, seat class
+must be either &quot;Regular&quot; or &quot;Premium&quot;, and if an invalid value is given, default to
+&quot;Regular&quot;. Implement methods like calculateFare() to compute the fare based on trip
+type and seat class (e.g., one-way Regular = 100, Premium = 150; round-trip Regular =
+180, Premium = 270), with a 10% discount if the code &quot;DIS10&quot; is applied. Also, write a
+displayTicketDetails() method to show all ticket information. Create at least four objects
+using different constructors to demonstrate constructor overloading effectively.
+  
+3. Write a Java Program to make a Simple Calculator using Switch Case.
+  
+4. Write a java program to calculate the sum and find the minimum value of elements in
+an integer array.
+  
+5. Write a java program that takes an integer input from the user and stores each digit of
+that number into an array.
+  
+6. Write a Java program that takes an integer array and counts how many numbers are
+even and how many are odd.
+
+
+1.Answer:
+
+class Book {
+    String title;
+    String author;
+    int yearPublished;
+
+    // Constructor
+    Book(String title, String author, int yearPublished) {
+        this.title = title;
+        this.author = author;
+        this.yearPublished = yearPublished;
+    }
+
+    // Method to display book information
+    void displayInfo() {
+        System.out.println("Title: " + title);
+        System.out.println("Author: " + author);
+        System.out.println("Year Published: " + yearPublished);
+        System.out.println("------------------------");
+    }
+}
+
+public class BookDemo {
+    public static void main(String[] args) {
+
+        Book book1 = new Book("Java Programming", "James Gosling", 2020);
+        Book book2 = new Book("Data Structures", "Mark Allen", 2018);
+
+        book1.displayInfo();
+        book2.displayInfo();
+    }
+}
+
+2.Answer:
+
+class MetroTicket {
+    String passengerName;
+    String source;
+    String destination;
+    boolean roundTrip;
+    String seatClass;
+    String discountCode;
+
+    // Constructor 1
+    MetroTicket(String passengerName, String source, String destination) {
+        this(passengerName, source, destination, false);
+    }
+
+    // Constructor 2
+    MetroTicket(String passengerName, String source,
+                String destination, boolean roundTrip) {
+        this(passengerName, source, destination, roundTrip, "Regular");
+    }
+
+    // Constructor 3
+    MetroTicket(String passengerName, String source,
+                String destination, boolean roundTrip,
+                String seatClass) {
+        this(passengerName, source, destination, roundTrip,
+             seatClass, "");
+    }
+
+    // Constructor 4 (Main Constructor)
+    MetroTicket(String passengerName, String source,
+                String destination, boolean roundTrip,
+                String seatClass, String discountCode) {
+
+        this.passengerName = passengerName;
+        this.source = source;
+        this.destination = destination;
+        this.roundTrip = roundTrip;
+
+        // Validation for seat class
+        if (seatClass.equalsIgnoreCase("Regular")
+                || seatClass.equalsIgnoreCase("Premium")) {
+            this.seatClass = seatClass;
+        } else {
+            this.seatClass = "Regular";
+        }
+
+        this.discountCode = discountCode;
+    }
+
+    // Method to calculate fare
+    double calculateFare() {
+        double fare = 0;
+
+        if (!roundTrip) { // One-way
+            if (seatClass.equalsIgnoreCase("Regular"))
+                fare = 100;
+            else
+                fare = 150;
+        } else { // Round-trip
+            if (seatClass.equalsIgnoreCase("Regular"))
+                fare = 180;
+            else
+                fare = 270;
+        }
+
+        // Apply discount
+        if (discountCode.equalsIgnoreCase("DIS10")) {
+            fare = fare - (fare * 0.10);
+        }
+
+        return fare;
+    }
+
+    // Display Ticket Details
+    void displayTicketDetails() {
+        System.out.println("Passenger Name : " + passengerName);
+        System.out.println("Source         : " + source);
+        System.out.println("Destination    : " + destination);
+        System.out.println("Round Trip     : " + roundTrip);
+        System.out.println("Seat Class     : " + seatClass);
+
+        if (discountCode.isEmpty())
+            System.out.println("Discount Code  : None");
+        else
+            System.out.println("Discount Code  : " + discountCode);
+
+        System.out.println("Fare           : " + calculateFare());
+        System.out.println("-----------------------------------");
+    }
+}
+
+public class MetroTicketDemo {
+    public static void main(String[] args) {
+
+        // Constructor 1
+        MetroTicket t1 = new MetroTicket(
+                "Rakib", "Dhaka", "Mirpur");
+
+        // Constructor 2
+        MetroTicket t2 = new MetroTicket(
+                "Hasan", "Uttara", "Farmgate", true);
+
+        // Constructor 3
+        MetroTicket t3 = new MetroTicket(
+                "Nayeem", "Agargaon", "Motijheel",
+                false, "Premium");
+
+        // Constructor 4
+        MetroTicket t4 = new MetroTicket(
+                "Karim", "Uttara", "Motijheel",
+                true, "Premium", "DIS10");
+
+        t1.displayTicketDetails();
+        t2.displayTicketDetails();
+        t3.displayTicketDetails();
+        t4.displayTicketDetails();
+    }
+}
+
+3.Answer:
+
+import java.util.Scanner;
+
+public class SimpleCalculator {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+
+        System.out.print("Enter first number: ");
+        double num1 = sc.nextDouble();
+
+        System.out.print("Enter second number: ");
+        double num2 = sc.nextDouble();
+
+        System.out.print("Enter operator (+, -, *, /): ");
+        char op = sc.next().charAt(0);
+
+        switch (op) {
+            case '+':
+                System.out.println("Result = " + (num1 + num2));
+                break;
+
+            case '-':
+                System.out.println("Result = " + (num1 - num2));
+                break;
+
+            case '*':
+                System.out.println("Result = " + (num1 * num2));
+                break;
+
+            case '/':
+                if (num2 != 0)
+                    System.out.println("Result = " + (num1 / num2));
+                else
+                    System.out.println("Cannot divide by zero!");
+                break;
+
+            default:
+                System.out.println("Invalid Operator!");
+        }
+
+        sc.close();
+    }
+}
+
+4.Answer:
+public class ArraySumMin {
+    public static void main(String[] args) {
+        int[] arr = {10, 25, 5, 30, 15};
+
+        int sum = 0;
+        int min = arr[0];
+
+        for (int i = 0; i < arr.length; i++) {
+            sum += arr[i];
+
+            if (arr[i] < min) {
+                min = arr[i];
+            }
+        }
+
+        System.out.println("Sum = " + sum);
+        System.out.println("Minimum Value = " + min);
+    }
+}
+
+5.Answer:
+
+import java.util.Scanner;
+
+public class DigitsToArray {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+
+        System.out.print("Enter an integer: ");
+        int num = sc.nextInt();
+
+        String str = Integer.toString(num);
+
+        int[] digits = new int[str.length()];
+
+        for (int i = 0; i < str.length(); i++) {
+            digits[i] = str.charAt(i) - '0';
+        }
+
+        System.out.println("Digits stored in array:");
+
+        for (int digit : digits) {
+            System.out.print(digit + " ");
+        }
+
+        sc.close();
+    }
+}
+
+6.Answer:
+
+public class EvenOddCount {
+    public static void main(String[] args) {
+        int[] arr = {12, 7, 9, 20, 15, 8, 11};
+
+        int evenCount = 0;
+        int oddCount = 0;
+
+        for (int num : arr) {
+            if (num % 2 == 0)
+                evenCount++;
+            else
+                oddCount++;
+        }
+
+        System.out.println("Even Numbers = " + evenCount);
+        System.out.println("Odd Numbers = " + oddCount);
+    }
+}
+
+
+
+
+
+  
